@@ -3,7 +3,7 @@ name: tp4
 services:
   # ---------------- Base de données ----------------
   postgres:
-    image: postgres:16-alpine
+    image: localhost:8083/library/postgres:16-alpine
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -75,14 +75,14 @@ services:
       # Pendant le build, "nexus" désigne la machine hôte, où Nexus publie le port 8081
       extra_hosts:
         - "nexus:host-gateway"
-    image: tp4/frontend:dev
+    image: localhost:8083/cours-frontend:1.0.0
     restart: unless-stopped
     environment:
       # Appel serveur à serveur : on utilise le nom du service, pas "localhost"
       STRAPI_URL: http://strapi:1337
       STRAPI_CLIENT_PASSWORD: ${STRAPI_CLIENT_PASSWORD}
     ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+      - "3000:3000"
     depends_on:
       strapi:
         condition: service_healthy
