@@ -1,6 +1,8 @@
 export type Level = "debutant" | "intermediaire" | "avance";
 export type LevelFilter = Level | "tous";
-
+export function formatLevel(level: Level): string {
+  return LEVEL_LABELS[level];
+}
 export type Cours = {
   id: number;
   documentId: string;
